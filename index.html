@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Epibuilder 2.0 | Web Platform for B-cell Epitope Analysis</title>
+    <meta name="description"
+        content="Epibuilder 2.0 is a modular, Dockerized web platform for prediction and analysis of linear B-cell epitopes.">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">Epibuilder 2.0</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="nav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#usage">Usage</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#install">Repositories</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#howto">How to use</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#cite">Cite</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <header class="hero text-center">
+        <div class="container">
+            <h1 class="display-5 fw-bold" style="color:white;text-align: center;">Epibuilder 2.0</h1>
+            <p class="lead" style="color:white;text-align: center;">A modular web platform for assembling, predicting,
+                and analyzing B-cell
+                linear epitopes</p>
+            <a href="#about" style="color:white;text-align: center;" class="btn btn-green-outline mt-3">Learn More</a>
+        </div>
+    </header>
+
+    <main id="main-content">
+        <section id="about" class="content">
+            <div class="container">
+                <h2>About</h2>
+                <p><strong>Epibuilder 2.0</strong> is a Dockerized, modular web platform developed by the Bioinformatics
+                    Lab at UFSC for in silico analysis of linear B-cell epitopes. It integrates BepiPred 3.0 and BLAST,
+                    and supports GPU or CPU environments. Users can submit <code>.fasta</code> or <code>.csv</code>
+                    files and interact with results directly via a web interface.</p>
+                <p>The platform was developed as part of a master's dissertation in Biotechnology and Biosciences at
+                    UFSC, aiming to improve usability and reproducibility for immunoinformatics workflows.</p>
+            </div>
+        </section>
+
+        <section id="usage" class="software-section">
+            <div class="container">
+                <h2>Usage</h2>
+                <p>Epibuilder 2.0 provides three interfaces:</p>
+                <ul>
+                    <li>Web interface (Angular 12) for data submission, analysis tracking, and visualization</li>
+                    <li>Command-line interface via Docker container</li>
+                    <li>Workflow automation using Nextflow</li>
+                </ul>
+                <p>Functionality includes:</p>
+                <ul>
+                    <li>Prediction of B-cell linear epitopes using BepiPred 3.0</li>
+                    <li>Topological and biochemical characterization (Emini, Karplus-Schulz, Chou-Fasman, etc.)</li>
+                    <li>Similarity searches using BLAST against curated IEDB datasets</li>
+                    <li>Role-based authentication (admin/user) and full result history tracking</li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="install" class="content">
+            <div class="container">
+                <h2>Repositories</h2>
+                <p>The system is composed of the following repositories, all available at <a
+                        href="https://github.com/bioinformatics-ufsc" target="_blank">GitHub</a>:</p>
+                <ul>
+                    <li><strong><a href="https://github.com/bioinformatics-ufsc/epibuilder-frontend"
+                                target="_blank">epibuilder-frontend</a></strong>: Angular 12-based GUI</li>
+                    <li><strong><a href="https://github.com/bioinformatics-ufsc/epibuilder-backend"
+                                target="_blank">epibuilder-backend</a></strong>: Spring Boot API service</li>
+                    <li><strong><a href="https://github.com/bioinformatics-ufsc/epibuilder-core"
+                                target="_blank">epibuilder-core</a></strong>: Command-line processing engine</li>
+                    <li><strong><a href="https://github.com/bioinformatics-ufsc/epibuilder-deploy"
+                                target="_blank">epibuilder-deploy</a></strong>: Docker + CI/CD setup</li>
+                    <li><strong>Nextflow scripts</strong>: included in backend for workflow orchestration</li>
+                </ul>
+            </div>
+        </section>
+        <section id="howto" class="content">
+            <div class="container">
+                <h2 id="howto">Requirements</h3>
+                    <ul>
+                        <li><a href="https://www.docker.com/" target="_blank">Docker</a> installed on your system.</li>
+                    </ul>
+
+                    <h3>Running the Docker Containers</h3>
+
+                    <h4>Debian-based Docker Container</h4>
+                    <p>To run the EPIBuilder Docker container with a Debian base, use the following command:</p>
+                    <pre><code>docker run -it \
+                      -p 80:80 \
+                      -p 8080:8080 \
+                      -v /home/bioinfo/github/epibuilder-deploy/pipeline:/pipeline \
+                      bioinfoufsc/epibuilder:debian-cpu \
+                      /bin/bash</code></pre>
+
+                    <h4>Ubuntu-based Docker Container</h4>
+                    <p>To run the EPIBuilder Docker container with an Ubuntu base, use the following command:</p>
+                    <pre><code>docker run -it \
+                      -p 80:80 \
+                      -p 8080:8080 \
+                      -v /home/bioinfo/github/epibuilder-deploy/pipeline:/pipeline \
+                      bioinfoufsc/epibuilder:ubuntu-gpu \
+                      /bin/bash</code></pre>
+
+                    <h3>Accessing the Web Interface</h3>
+                    <p>Once the container is running, you can access the web interface by opening your browser and
+                        navigating to:
+                    </p>
+                    <pre><code>http://localhost</code></pre>
+
+                    <h3>Login Credentials</h3>
+                    <ul>
+                        <li><strong>Admin User:</strong></li>
+                        <ul>
+                            <li>Username: <code>admin</code></li>
+                            <li>Password: <code>admin</code></li>
+                        </ul>
+                    </ul>
+
+                    <h3>Docker Images</h3>
+                    <p>To pull the Docker image for the appropriate environment, use the following commands:</p>
+                    <h4>For the <strong>Ubuntu GPU</strong> version:</h4>
+                    <pre><code>docker pull bioinfoufsc/epibuilder:ubuntu-gpu</code></pre>
+
+                    <h4>For the <strong>Debian CPU</strong> version:</h4>
+                    <pre><code>docker pull bioinfoufsc/epibuilder:debian-cpu</code></pre>
+
+                    <p>To install locally, clone the repositories and follow the README instructions for Docker or
+                        development
+                        environments.</p>
+            </div>
+
+            <section id="cite" class="software-section">
+                <div class="container">
+                    <h2>Citations</h2>
+                    <p>If you use Epibuilder 2.0, cite both the publication and the academic thesis:</p>
+                    <blockquote class="text-center">
+                        <strong>Publication (APA):</strong><br />
+                        Moreira, R. S., Filho, V. B., Calomeno, N. A., Wagner, G., & Miletti, L. C. (2022).<br />
+                        <em>EpiBuilder: A Tool for Assembling, Searching, and Classifying B-Cell Epitopes</em>.<br />
+                        Bioinformatics and Biology Insights, 16, 117793222210952. <br />
+                        <a href="https://doi.org/10.1177/11779322221095221" target="_blank">DOI</a>
+                    </blockquote>
+
+                    <p class="text-center">Also cite prediction methods used (BepiPred, Chou-Fasman, Emini, etc.) and
+                        BLAST+, if applicable.</p>
+                </div>
+            </section>
+    </main>
+
+    <footer class="footer" style="color:white;text-align: center;">
+        <div class="container" style="color:white;text-align: center;">
+            <p>&copy; 2025 Epibuilder 2.0 — Bioinformatics Lab at UFSC. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
